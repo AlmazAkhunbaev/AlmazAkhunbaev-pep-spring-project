@@ -33,42 +33,82 @@ public class SocialMediaController {
     @Autowired
     MessageService messageService;
 
+    /**
+     * Post account.
+     * @param account object.
+     * @return account.
+     */
     @PostMapping("/register")
 	public Account addAccount(@RequestBody Account account) {
         account.setAccount_id(0);
 		return accountService.addAccount(account);
     }
 
+    /**
+     * Post account to verify login.
+     * @param account object.
+     * @return account.
+     */
     @PostMapping("/login")
     public Account login(@RequestBody Account account) {
         return accountService.login(account);
     }
 
+    /**
+     * Post message to add.
+     * @param account object.
+     * @return message.
+     */
     @PostMapping("/messages")
     public Message addMessage(@RequestBody Message message) {
         return messageService.addMessage(message);
     }
 
+    /**
+     * Get messages.
+     * @return List<Message>.
+     */
     @GetMapping("/messages")
     public List<Message> allMessages() {
         return messageService.getAllMessages();
     }
 
+    /**
+     * Get message by id.
+     * @param message_id to find message.
+     * @return message.
+     */
     @GetMapping("/messages/{message_id}")
     public Message getMessage(@PathVariable int message_id) {
         return messageService.getMessage(message_id);
     }
 
+    /**
+     * Delete message by id.
+     * @param message_id to find message.
+     * @return ResponseEntity.
+     */
     @DeleteMapping("/messages/{message_id}")
     public ResponseEntity<Object> deleteMessage(@PathVariable int message_id) {
         return messageService.deleteMessage(message_id);
     }
 
+    /**
+     * Patch message.
+     * @param message_id to update.
+     * @param messagePatch map object that contains message text.
+     * @return ResponseEntity.
+     */
     @PatchMapping("/messages/{message_id}")
     public ResponseEntity<Object> updateMessage(@PathVariable int message_id, @RequestBody Map<String, Object> messagePatch) {
         return messageService.patch(message_id, messagePatch);          
     }
 
+    /**
+     * Get messages.
+     * @param account_id used to find messages.
+     * @return List<Message>.
+     */
     @GetMapping("/accounts/{account_id}/messages")
     public List<Message> getAllMessagesAccountId(@PathVariable int account_id) {
         return messageService.getAllMessagesAccoundId(account_id);

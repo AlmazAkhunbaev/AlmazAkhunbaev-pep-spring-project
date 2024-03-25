@@ -14,6 +14,11 @@ public class AccountService {
     @Autowired
     AccountRepository accountRepository;
 
+    /**
+     * This method adds a new account record to the database.
+     * @param account object to add to the database.
+     * @return Account added object.
+     */
     public Account addAccount(Account account) {
         String username = account.getUsername();
         if (username.length() == 0) {
@@ -31,6 +36,11 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
+    /**
+     * This method finds an account.
+     * @param account object used to find an account in the database.
+     * @return Account object.
+     */
     public Account login(Account account) {
         Account account_verified =  accountRepository.findAccountByUsernameAndPassword(account.getUsername(), account.getPassword());
         if (account_verified == null) {
